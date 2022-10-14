@@ -1,0 +1,15 @@
+There are a lot of situations where an event scheduler would be helpful in an Ice Cream Business.  Here are just a few examples - changing promotional prices on point of sale items on a monthly basis, expiring promotional coupons, updating the expiration date of customer loyalty members, resetting customer loyalty points, and changing menu items.
+
+The code would something like the following-
+
+Use courtneys_icecream_shop;
+-- Change statement delimiter
+delimiter //
+-- Creates monthly recurring event starting 10/1/2022
+Create event monthly_reset_loyaltypoints
+on schedule every 1 month
+starts '2022-10-01'
+-- Resets customer loyalty points on a monthly basis
+do begin
+	Update customer set loyaltypoints = '0' - interval 1 month;
+END //
